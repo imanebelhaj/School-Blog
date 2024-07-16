@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Add task </title>
+
+    <script src="../assets/js/color-modes.js"></script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.122.0">
+    <title>Modals · Bootstrap v5.3</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/modals/">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <style>
+        .container {
+            max-width: 960px;
+        }
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .b-example-divider {
+            width: 100%;
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+
+
+        .bd-mode-toggle {
+            z-index: 1500;
+        }
+
+        .bd-mode-toggle .dropdown-menu .active .bi {
+            display: block !important;
+        }
+        .bi {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /*
+         * Sidebar
+         */
+
+        @media (min-width: 768px) {
+            .sidebar .offcanvas-lg {
+                position: -webkit-sticky;
+                position: sticky;
+                top: 48px;
+            }
+            .navbar-search {
+                display: block;
+            }
+        }
+
+        .sidebar .nav-link {
+            font-size: .875rem;
+            font-weight: 500;
+        }
+
+        .sidebar .nav-link.active {
+            color: #2470dc;
+        }
+
+        .sidebar-heading {
+            font-size: .75rem;
+        }
+
+        /*
+         * Navbar
+         */
+
+        .navbar-brand {
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+            background-color: rgba(0, 0, 0, .25);
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+        }
+
+        .navbar .form-control {
+            padding: .75rem 1rem;
+        }
+        .list-group {
+            width: 100%;
+            margin-left: 0%;
+
+        }
+
+        .form-check-input:checked + .form-checked-content {
+            opacity: .5;
+        }
+
+        .form-check-input-placeholder {
+            border-style: dashed;
+        }
+        [contenteditable]:focus {
+            outline: 0;
+        }
+
+        .list-group-checkable .list-group-item {
+            cursor: pointer;
+        }
+        .list-group-item-check {
+            position: absolute;
+            clip: rect(0, 0, 0, 0);
+        }
+        .list-group-item-check:hover + .list-group-item {
+            background-color: var(--bs-secondary-bg);
+        }
+        .list-group-item-check:checked + .list-group-item {
+            color: #fff;
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
+        }
+        .list-group-item-check[disabled] + .list-group-item,
+        .list-group-item-check:disabled + .list-group-item {
+            pointer-events: none;
+            filter: none;
+            opacity: .5;
+        }
+
+        .list-group-radio .list-group-item {
+            cursor: pointer;
+            border-radius: .5rem;
+        }
+        .list-group-radio .form-check-input {
+            z-index: 2;
+            margin-top: -.5em;
+        }
+        .list-group-radio .list-group-item:hover,
+        .list-group-radio .list-group-item:focus {
+            background-color: var(--bs-secondary-bg);
+        }
+
+        .list-group-radio .form-check-input:checked + .list-group-item {
+            background-color: var(--bs-body);
+            border-color: var(--bs-primary);
+            box-shadow: 0 0 0 2px var(--bs-primary);
+        }
+        .list-group-radio .form-check-input[disabled] + .list-group-item,
+        .list-group-radio .form-check-input:disabled + .list-group-item {
+            pointer-events: none;
+            filter: none;
+            opacity: .5;
+        }
+
+
+
+    </style>
+
+
+
+</head>
+<body class="bg-body-tertiary">
+
+
+<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" th:href="@{/dashboard}" style="text-decoration: none; color: white;">&#x2B50 School news board &#x2B50</a></button>
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+        <div class="dropdown " style="margin-left: 20px;">
+            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Account ... </a>
+            <ul class="dropdown-menu text-small">
+                <li><a class="dropdown-item" th:href="@{/dashboard}">Settings</a></li>
+                <li><a class="dropdown-item" th:href="@{/dashboard}">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" th:href="@{/}">Sign out</a></li>
+            </ul>
+        </div>
+        <button style="background-color: transparent;color: transparent;border: none;cursor: pointer; margin-right: 60px;"></button>
+
+
+
+
+
+    </div>
+</header>
+
+<div class="container">
+
+    <main>
+        <div class="py-5 text-center">
+            <!-- <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+            <h2 style="margin-top: 0px; margin-bottom: 0%;">Add New User</h2>
+            <!-- <p class="lead">Below is an example form built entirely with Bootstrap?s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p> -->
+        </div>
+        <div class="row g-5 d-flex justify-content-center">
+            <div class="col-md-7 col-lg-8" >
+                <form th:action="@{/users/process_createUser}" method="post" th:object="${user}" class="needs-validation">
+                    <div class="row g-3">
+
+
+
+                        <div class="col-sm-12">
+                            <label for="name" class="form-label">Full name</label>
+                            <input type="text" class="form-control"  name="name" id="name" required>
+                            <span class="text-danger"  th:errors="${user.fullName}"></span>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control"  name="username" id="username" required>
+                            <span class="text-danger"  th:errors="${user.username}"></span>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" required placeholder="" value="">
+                            <span class="text-danger"  th:errors="${user.email}"></span>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" required placeholder="" value="">
+                            <span class="text-danger"  th:errors="${user.password}"></span>
+                        </div>
+
+
+                        <div class="col-sm-12">
+                            <label for="imageUrl" class="form-label">Image Url</label>
+                            <input type="text" class="form-control" name="imageUrl" id="imageUrl" required placeholder="" value="">
+                            <span class="text-danger"  th:errors="${user.imageUrl}"></span>
+                        </div>
+
+
+                        <button class="btn btn-primary form-control w-50" type="submit">Add User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+
+</div>
+<script src="../assets/dist/js/bootstrap.bundle.min.js">
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+
+
+</body>
+</html>
