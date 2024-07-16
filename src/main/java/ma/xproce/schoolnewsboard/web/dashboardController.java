@@ -10,4 +10,9 @@ public class dashboardController {
     public String index() {
         return "dashboard";
     }
+
+    @GetMapping("/userDashboard")
+    public String userDashboard() {
+        return "userDashboard";
+    }
 }

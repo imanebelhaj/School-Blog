@@ -49,7 +49,7 @@ public class UserController {
                 // Login successful
                 session.setAttribute("loggedInUser", user);
                 model.addAttribute("username", username);
-                return "redirect:/dashboard";
+                return "redirect:/userDashboard";
             } else {
                 // Login failed
                 model.addAttribute("error", "Invalid username or password.");
@@ -62,9 +62,9 @@ public class UserController {
     @PostMapping("/process_createUser")
     public String createUser(@ModelAttribute("user") User user, Model model) {
         try {
-            // Encrypt the user's password before saving
-//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
+          //   Encrypt the user's password before saving
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setCreationDate(new Date());
             user.setLastUpdateDate(new Date());
             userService.save(user);
