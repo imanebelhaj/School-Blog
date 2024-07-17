@@ -27,6 +27,9 @@ public class UserController {
     private static final String ADMIN_USERNAME = "admin";
     private static final String ADMIN_PASSWORD = "admin123";
 
+
+
+    //user and admin login
     @GetMapping("/signin")
     public String showSignInForm(Model model) {
         return "signin";
@@ -41,7 +44,7 @@ public class UserController {
             adminUser.setFullName("Administrator");
             session.setAttribute("loggedInUser", adminUser);
             model.addAttribute("username", username);
-            return "redirect:/dashboard";
+            return "redirect:/dashboardUsers";
         } else {
             User user = userRepository.findByUsername(username);
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -58,7 +61,7 @@ public class UserController {
         }
     }
 
-
+    //create User
     @PostMapping("/process_createUser")
     public String createUser(@ModelAttribute("user") User user, Model model) {
         try {
@@ -68,11 +71,11 @@ public class UserController {
             user.setCreationDate(new Date());
             user.setLastUpdateDate(new Date());
             userService.save(user);
-            return "redirect:/dashboard";
+            return "redirect:/dashboardUsers";
         } catch (Exception e) {
             // Handle error and redirect to dashboard with error message
             model.addAttribute("errorMessage", "An error occurred while creating the user: " + e.getMessage());
-            return "redirect:/dashboard";
+            return "redirect:/dashboardUsers";
         }
     }
     @GetMapping("/createUser")
@@ -82,15 +85,20 @@ public class UserController {
     }
 
 
-    // Admin can update a user
-//    @PutMapping("/admin/update/{id}")
-//    public ResponseEntity<User> updateUser(@PathVariable("id") Long id, @RequestBody User userDetails) {
-//        User updatedUser = userService.updateUser(id, userDetails);
-//        return ResponseEntity.ok(updatedUser);
-//    }
 
-    @PostMapping("/updateUser/{id}")
-    public String updateUser(@PathVariable("id") Long userId, @ModelAttribute("user")  User updatedUser, BindingResult result) {
+    //update User
+    @GetMapping("/updateUser/{userId}")
+    public String UpdateUserForm(@PathVariable("userId") Long userId, Model model) {
+        User user = userService.getUserById(userId);
+        if (user == null) {
+            return "redirect:/dashboardUsers";
+        }
+        model.addAttribute("user", user);
+        return "updateUser";
+    }
+
+    @PostMapping("/updateUser/{userId}")
+    public String updateUser(@PathVariable("userId") Long userId, @ModelAttribute("user")  User updatedUser, BindingResult result) {
         if (result.hasErrors()) {
             return "updateUser";
         }
@@ -104,49 +112,19 @@ public class UserController {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             originalUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         }
-        originalUser.setLastUpdateDate(new Date()); // Update last update date
-        // Save the updated user
+        originalUser.setLastUpdateDate(new Date());
         userService.saveUser(originalUser);
-        return "redirect:/dashboard"; // Redirect to home after updating the user
+        return "redirect:/dashboardUsers";
     }
 
-    @GetMapping("/updateUser/{userId}")
-    public String showUpdateTaskForm(@PathVariable("userId") Long userId, Model model) {
-        // Retrieve the user by ID
-        User user = userService.getUserById(userId);
-        // Check if the user exists
-        if (user == null) {
-            // Handle case where user with given ID is not found
-            return "redirect:/dashboard";
-        }
-        // Add the task and user lists to the model
-        model.addAttribute("user", user);
-        return "updateUser"; // Return the name of the HTML template for updating a user
+    @PostMapping("/deleteUser/{userId}")
+    public String deleteUser(@PathVariable("userId") Long userId) {
+        userService.deleteUser(userId);
+        return "redirect:/dashboardUsers";
     }
 
 
-    // Admin can delete a user
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
-    }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok(user);
-    }
 
-    @GetMapping("/username/{username}")
-    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
-        User user = userService.getUserByUsername(username);
-        return ResponseEntity.ok(user);
-    }
 
-    @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
-    }
 }

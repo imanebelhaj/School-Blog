@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"  lang="en">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Add task </title>
+    <title>New Article</title>
 
     <script src="../assets/js/color-modes.js"></script>
 
@@ -94,25 +94,14 @@
          * Sidebar
          */
 
-        @media (min-width: 768px) {
-            .sidebar .offcanvas-lg {
-                position: -webkit-sticky;
-                position: sticky;
-                top: 48px;
-            }
-            .navbar-search {
-                display: block;
-            }
-        }
+
 
         .sidebar .nav-link {
             font-size: .875rem;
             font-weight: 500;
         }
 
-        .sidebar .nav-link.active {
-            color: #2470dc;
-        }
+
 
         .sidebar-heading {
             font-size: .75rem;
@@ -156,14 +145,7 @@
             position: absolute;
             clip: rect(0, 0, 0, 0);
         }
-        .list-group-item-check:hover + .list-group-item {
-            background-color: var(--bs-secondary-bg);
-        }
-        .list-group-item-check:checked + .list-group-item {
-            color: #fff;
-            background-color: var(--bs-primary);
-            border-color: var(--bs-primary);
-        }
+
         .list-group-item-check[disabled] + .list-group-item,
         .list-group-item-check:disabled + .list-group-item {
             pointer-events: none;
@@ -179,16 +161,7 @@
             z-index: 2;
             margin-top: -.5em;
         }
-        .list-group-radio .list-group-item:hover,
-        .list-group-radio .list-group-item:focus {
-            background-color: var(--bs-secondary-bg);
-        }
 
-        .list-group-radio .form-check-input:checked + .list-group-item {
-            background-color: var(--bs-body);
-            border-color: var(--bs-primary);
-            box-shadow: 0 0 0 2px var(--bs-primary);
-        }
         .list-group-radio .form-check-input[disabled] + .list-group-item,
         .list-group-radio .form-check-input:disabled + .list-group-item {
             pointer-events: none;

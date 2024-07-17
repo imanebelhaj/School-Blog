@@ -8,15 +8,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
+
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/articles")
 public class ArticleController {
+
     @Autowired
     private ArticleServiceImpl articleService;
-
 
 
     @PostMapping("/process_createArticle")
@@ -25,11 +28,11 @@ public class ArticleController {
             article.setCreationDate(new Date());
             article.setLastUpdateDate(new Date());
             articleService.saveArticle(article);
-            return "redirect:/dashboard";
+            return "redirect:/dashboardArticles";
         } catch (Exception e) {
             // Handle error and redirect to dashboard with error message
             model.addAttribute("errorMessage", "An error occurred while creating the article: " + e.getMessage());
-            return "redirect:/dashboard";
+            return "redirect:/dashboardArticles";
         }
     }
     @GetMapping("/createArticle")
@@ -41,25 +44,43 @@ public class ArticleController {
 
 
 
-    // Update an article
-    @PostMapping("/update/{id}")
-    public String updateTask(@PathVariable("id") Long articleId, @ModelAttribute("article")  Article updatedArticle, BindingResult result) {
-        if (result.hasErrors()) {
-            return "updatArticle";
+    //update Article
+    @GetMapping("/updateArticle/{articleId}")
+    public String UpdateArticleForm(@PathVariable("articleId") Long articleId, Model model) {
+        Article article = articleService.getArticleById(articleId);
+        if (article == null) {
+            return "redirect:/dashboardArticles";
         }
+        model.addAttribute("article", article);
+        return "updateArticle";
+    }
 
-        // Retrieve the original task from the database
+    @PostMapping("/updateArticle/{articleId}")
+    public String updateArticle(@PathVariable("articleId") Long articleId, @ModelAttribute("article") @Valid Article updatedArticle, BindingResult result) {
+        if (result.hasErrors()) {
+            return "updateArticle";
+        }
+        // Retrieve the original article from the database
         Article originalArticle = articleService.getArticleById(articleId);
-        // Update the properties of the original task with the values from the updated task
+
+        // Update the properties of the original article with the values from the updated one
         originalArticle.setTitle(updatedArticle.getTitle());
         originalArticle.setContent(updatedArticle.getContent());
         originalArticle.setImageUrl(updatedArticle.getImageUrl());
+        originalArticle.setAuthor(updatedArticle.getAuthor());
+        originalArticle.setLastUpdateDate(new Date());
 
-        originalArticle.setLastUpdateDate(new Date()); // Update last update date
-        // Save the updated task
+        // Save the updated article
         articleService.saveArticle(originalArticle);
 
-        return "redirect:/dashboard"; // Redirect to dashboard after updating the task
+        return "redirect:/dashboardArticles";
+    }
+
+
+    @PostMapping("/deleteArticle/{articleId}")
+    public String deleteArticle(@PathVariable("articleId") Long articleId) {
+        articleService.deleteArticle(articleId);
+        return "redirect:/dashboardArticles";
     }
 
 

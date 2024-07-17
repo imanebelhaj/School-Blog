@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"  lang="en">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Add task </title>
+    <title>New User</title>
 
     <script src="../assets/js/color-modes.js"></script>
 
@@ -241,9 +241,6 @@
             <div class="col-md-7 col-lg-8" >
                 <form th:action="@{/users/process_createUser}" method="post" th:object="${user}" class="needs-validation">
                     <div class="row g-3">
-
-
-
                         <div class="col-sm-12">
                             <label for="fullName" class="form-label">Full name</label>
                             <input type="text" class="form-control"  name="fullName" id="fullName" required>
