@@ -82,5 +82,10 @@ public class ArticleController {
         return "redirect:/dashboardArticles";
     }
 
+    @GetMapping("/articleDetails")
+    public String articleDetails() {
+        return "articleDetails";
+    }
+
 
 }
