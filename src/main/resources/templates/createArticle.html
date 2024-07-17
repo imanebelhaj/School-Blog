@@ -178,29 +178,45 @@
 </head>
 <body class="bg-body-tertiary">
 
+<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" aria-label="Main navigation">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Board</a>
+        <button class="navbar-toggler p-0 border-0" type="button" id="navbarSideCollapse" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" th:href="@{/dashboard}" style="text-decoration: none; color: white;">&#x2B50 School news board &#x2B50</a></button>
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/dashboardUsers}">Dashboard</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Utilities</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/articles/createArticle}">Add New Article</a></li>
+                        <li><a class="dropdown-item" th:href="@{/users/createUser}">Add New User</a></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Notifications</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Switch account</a>
+                </li>
 
-        <div class="dropdown " style="margin-left: 20px;">
-            <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Account ... </a>
-            <ul class="dropdown-menu text-small">
-                <li><a class="dropdown-item" th:href="@{/dashboard}">Settings</a></li>
-                <li><a class="dropdown-item" th:href="@{/dashboard}">Profile</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" th:href="@{/}">Sign out</a></li>
             </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
         </div>
-        <button style="background-color: transparent;color: transparent;border: none;cursor: pointer; margin-right: 60px;"></button>
-
-
-
-
-
     </div>
-</header>
+</nav>
+
 
 <div class="container">
 
