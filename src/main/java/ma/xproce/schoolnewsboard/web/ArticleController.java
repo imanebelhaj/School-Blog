@@ -56,13 +56,12 @@ public class ArticleController {
     }
 
     @PostMapping("/updateArticle/{articleId}")
-    public String updateArticle(@PathVariable("articleId") Long articleId, @ModelAttribute("article") @Valid Article updatedArticle, BindingResult result) {
+    public String updateArticle(@PathVariable("articleId") Long articleId, @ModelAttribute("article")  Article updatedArticle, BindingResult result) {
         if (result.hasErrors()) {
             return "updateArticle";
         }
         // Retrieve the original article from the database
         Article originalArticle = articleService.getArticleById(articleId);
-
         // Update the properties of the original article with the values from the updated one
         originalArticle.setTitle(updatedArticle.getTitle());
         originalArticle.setContent(updatedArticle.getContent());
