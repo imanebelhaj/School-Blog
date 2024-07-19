@@ -82,9 +82,34 @@ public class ArticleController {
         return "redirect:/dashboardArticles";
     }
 
-    @GetMapping("/articleDetails")
-    public String articleDetails() {
+    @GetMapping("/articleDetails/{articleId}")
+    public String articleDetails(@PathVariable("articleId") Long articleId, Model model) {
+        Article article = articleService.getArticleById(articleId);
+        model.addAttribute("article", article);
+
+        List<Article> articles = articleService.getAllArticles();
+        model.addAttribute("articles", articles);
+
         return "articleDetails";
+    }
+    @GetMapping("/articleDetailsAdmin/{articleId}")
+    public String articleDetailsAdmin(@PathVariable("articleId") Long articleId, Model model) {
+        Article article = articleService.getArticleById(articleId);
+        model.addAttribute("article", article);
+
+        List<Article> articles = articleService.getAllArticles();
+        model.addAttribute("articles", articles);
+
+        return "articleDetailsAdmin";
+    }
+
+
+
+    @GetMapping("/dashboardArticles")
+    public String index(Model model) {
+        List<Article> articles =articleService.getAllArticles();
+        model.addAttribute("articles", articles);
+        return "dashboardAdminArticles";
     }
 
 

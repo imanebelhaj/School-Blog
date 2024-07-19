@@ -222,7 +222,8 @@
                         <p class="card-text" th:text="${article.content}">Article content</p>
                         <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a type="button" class="btn btn-sm btn-outline-primary" th:href="@{/articles/articleDetails}">View</a>
+                                    <a type="button" class="btn btn-sm btn-outline-primary" th:href="@{/articles/articleDetailsAdmin/{articleId}(articleId=${article.articleId})}">View</a>
+                                    <a type="button" class="btn btn-sm btn-outline-primary" th:href="@{/articles/articleDetails/{articleId}(articleId=${article.articleId})}">View User</a>
                                     <a type="button" class="btn btn-sm btn-outline-success"  th:href="@{/articles/updateArticle/{articleId}(articleId=${article.articleId})}">Edit</a>
                                 </div>
                         </div>
