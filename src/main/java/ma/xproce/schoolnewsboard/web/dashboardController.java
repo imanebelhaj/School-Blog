@@ -36,8 +36,17 @@ public class dashboardController {
 
 
     @GetMapping("/userDashboard")
-    public String userDashboard() {
+    public String userDashboard(Model model) {
+        List<Article> articles =articleService.getAllArticles();
+        model.addAttribute("articles", articles);
         return "userDashboard";
+    }
+
+    @GetMapping("/userHome")
+    public String userHome(Model model) {
+        List<Article> articles =articleService.getAllArticles();
+        model.addAttribute("articles", articles);
+        return "userHome";
     }
 
 

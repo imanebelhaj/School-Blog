@@ -355,7 +355,7 @@
                 Users dashboard
                 <span class="badge text-bg-light rounded-pill align-text-bottom">27</span>
             </a>
-            <a class="nav-link active" th:href="@{/dashboardArticles}">Articles dashboard</a>
+            <a class="nav-link " th:href="@{/dashboardArticles}">Articles dashboard</a>
             <!--        <a class="nav-link" th:href="@{/statistics}">Statistics</a>-->
             <a class="nav-link" th:href="@{/userDashboard}">Overview</a>
             <!--        <a class="nav-link" th:href="#">Link</a>-->
@@ -364,7 +364,7 @@
     <br> <br>
     <div class="row featurette">
         <div class="col-md-7 order-md-2" >
-            <h2 class="featurette-heading fw-normal lh-1" th:text="${article.title}"> Article Title</h2>
+            <h1 class="display-4 fst-italic" th:text="${article.title}"></h1>
             <br>
             <p class="lead" th:text="${article.content} ">content </p>
             <br>
