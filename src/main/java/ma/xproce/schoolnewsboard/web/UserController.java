@@ -61,6 +61,22 @@ public class UserController {
         }
     }
 
+    @GetMapping("/userProfile")
+    public String showUserProfile(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("loggedInUser");
+        if (user != null) {
+            // Fetch user details from the database if needed
+            User userFromDb = userRepository.findByUsername(user.getUsername());
+            if (userFromDb != null) {
+                model.addAttribute("user", userFromDb);
+                return "userProfile";
+            }
+        }
+        // Redirect to login if user is not logged in
+        return "redirect:/users/signin";
+    }
+
+
     //create User
     @PostMapping("/process_createUser")
     public String createUser(@ModelAttribute("user") User user, Model model) {
