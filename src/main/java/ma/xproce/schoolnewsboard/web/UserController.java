@@ -1,6 +1,7 @@
 package ma.xproce.schoolnewsboard.web;
 
 import jakarta.servlet.http.HttpSession;
+import ma.xproce.schoolnewsboard.dao.entites.Article;
 import ma.xproce.schoolnewsboard.dao.entites.User;
 import ma.xproce.schoolnewsboard.dao.repositories.UserRepository;
 import ma.xproce.schoolnewsboard.service.UserServiceImpl;
@@ -74,6 +75,17 @@ public class UserController {
         }
         // Redirect to login if user is not logged in
         return "redirect:/users/signin";
+    }
+
+    @GetMapping("/userDetailsProfileAdmin/{userId}")
+    public String userDetailsProfileAdmin(@PathVariable("userId") Long userId, Model model) {
+        User user = userService.getUserById(userId);
+        model.addAttribute("user", user);
+
+        List<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+
+        return "userDetailsProfileAdmin";
     }
 
 

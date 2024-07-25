@@ -4,24 +4,92 @@
     <meta charset="UTF-8">
     <title>User Profile</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        .profile-img {
+            max-width: 150px;
+            border-radius: 50%;
+        }
+        .profile-header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-info {
+            margin-top: 20px;
+        }
+        .profile-info h1 {
+            font-size: 2.5rem;
+        }
+        .profile-info p {
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4 text-center">
-            <img th:src="${user.imageUrl}" class="img-fluid rounded-circle" alt="Profile Image" style="max-width: 200px;">
+
+
+
+<div class="container">
+    <header class="border-bottom lh-1 py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1">
+                <a class="blog-header-logo text-body-emphasis text-decoration-none"href="#">School blog</a>
+            </div>
+
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <a class="link-secondary" href="#" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"/><path d="M21 21l-5.2-5.2"/></svg>
+                </a>
+                <a class="btn btn-sm btn-outline-success active"  th:href="@{/users/userProfile}">Profile</a>
+            </div>
         </div>
-        <div class="col-md-8">
-            <h1 th:text="${user.fullName}">Full Name</h1>
-            <p>
-                <strong>Username:</strong> <span th:text="${user.username}">username</span><br>
-                <strong>Email:</strong> <span th:text="${user.email}">email@example.com</span><br>
-                <strong>Account Created:</strong> <span th:text="${#dates.format(user.creationDate, 'MMMM d, yyyy')}">January 1, 2020</span><br>
-                <strong>Last Updated:</strong> <span th:text="${#dates.format(user.lastUpdateDate, 'MMMM d, yyyy')}">January 1, 2020</span>
-            </p>
+    </header>
+
+    <div class="nav-scroller py-1 mb-3 border-bottom">
+        <nav class="nav nav-underline justify-content-between">
+            <a class="nav-item nav-link link-body-emphasis " th:href="@{/userHome}">Home</a>
+            <a class="nav-item nav-link link-body-emphasis " th:href="@{/userDashboard}">Explore</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/todayArticles}">Today</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/WeekArticles}">This Week</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/monthArticles}">This Month</a>
+            <a class="nav-item nav-link link-body-emphasis" th:href="@{/contact}">Contact</a>
+        </nav>
+    </div>
+</div>
+<div class="container mt-5">
+    <div class="col-md-7 col-lg-8 mx-auto profile-container">
+        <div class="profile-header">
+            <div class="col-md-4 mx-auto">
+                <img th:src="${user.imageUrl}" class="profile-img" alt="Profile Image">
+            </div>
+            <h4 class="mb-3">Hello <span class="mb-3" th:text="${user.fullName}"></span> &#128075;</h4>
+        </div>
+        <div class="profile-info">
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <label class="form-label">Full Name</label>
+                    <span class="form-control" th:text="${user.fullName}">Full Name</span>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Username</label>
+                    <div class="input-group has-validation">
+                        <span class="input-group-text">@</span>
+                        <span class="form-control" th:text="${user.username}">username</span>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Email</label>
+                    <span class="form-control" th:text="${user.email}">email@example.com</span>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
+
+<br><br><br>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
